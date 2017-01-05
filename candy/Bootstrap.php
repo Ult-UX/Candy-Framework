@@ -1,5 +1,5 @@
 <?php
-namespace Framework;
+namespace Candy;
 
 use Candy\core\AutoLoader;
 use Candy\core\Route;
@@ -8,7 +8,7 @@ use Candy\core\Config;
 /**
  * 框架核心引导文件
  *
- * @package     Framework
+ * @package     Candy
  * @author      ult-ux@outlook.com
  * @link        http://example.com
  */
@@ -52,15 +52,9 @@ final class Bootstrap
         // 自动加载
         $this->autoLoad();
         // 注册配置文件文件夹
-        Config::add(APP_PATH.'config'.DIRECTORY_SEPARATOR);
-        Config::load('config');
-        // 实例化配置类
-        $this->config = new Config();
+        Config::add(APP_PATH.'config');
         // 引入应用配置
-        $this->config->load('config');
-
-
-        var_dump(Config::$items);
+        Config::load('config');
     }
     public function autoLoad()
     {
@@ -83,7 +77,7 @@ final class Bootstrap
     public function setUri()
     {
         $this->uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->uri = preg_replace('/'.preg_quote($this->config->item('url_suffix')).'$/is', '', $this->uri);
+        $this->uri = preg_replace('/'.preg_quote(Config::get('url_suffix')).'$/is', '', $this->uri);
         $this->uri = '/'.implode('/', array_diff_assoc(explode('/', $this->uri), explode('/', $_SERVER['SCRIPT_NAME'])));
         $this->uri = urldecode($this->uri);
     }

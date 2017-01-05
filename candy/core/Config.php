@@ -3,24 +3,23 @@ namespace Candy\core;
 
 class Config
 {
-    private static $config = array();
+    public static $config = array();
     private $items = array();
     private static $dirs = array();
+    private static $allowed_method = array('load','get');
     // 获取 $this->items
     public function __call($method, $arguments)
     {
-        if ($method !== 'get' or !isset($this->items[$arguments[0]])) {
-            return false;
-        }
-        return $this->items[$arguments[0]];
+        return call_user_func_array(array($this, $method.'Config'), $arguments);
     }
     // 获取 self::$config
     public static function __callStatic($method, $arguments)
     {
-        if ($method !== 'get' or !isset(self::$config[$arguments[0]])) {
+        if (!in_array($method, self::$allowed_method)) {
             return false;
         }
-        return self::$config[$arguments[0]];
+        $arguments[1] = empty($arguments[1]) ? true : $arguments[1];
+        return call_user_func_array(array(new static(), $method.'Config'), $arguments);
     }
     public function __get($name)
     {
@@ -53,7 +52,21 @@ class Config
     {
         $this->items[$name] = $value;
     }
-    private function load($file_name, $is_global = false, $file_path = null)
+    public function getConfig($config_name, $is_global = false)
+    {
+        if ($is_global) {
+            if (empty(self::$config[$config_name])) {
+                return false;
+            }
+            return self::$config[$config_name];
+        } else {
+            if (empty($this->items[$config_name])) {
+                return false;
+            }
+            return $this->items[$config_name];
+        }
+    }
+    private function loadConfig($file_name, $is_global = false, $file_path = null)
     {
         if (!is_array($file_name)) {
             if ($file_path == null) {
