@@ -1,7 +1,7 @@
 <?php
 namespace Candy\core;
 
-class Config
+final class Config
 {
     public static $config = array();
     private $items = array();

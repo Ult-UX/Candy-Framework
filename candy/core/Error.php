@@ -1,7 +1,7 @@
 <?php
 namespace Candy\core;
 
-class Error
+final class Error
 {
     public function show($code)
     {

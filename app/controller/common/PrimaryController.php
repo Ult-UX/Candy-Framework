@@ -6,6 +6,8 @@ use Candy\library\Parser;
 
 abstract class PrimaryController extends Controller
 {
+    protected $parser;
+
     public function __construct()
     {
         parent::__construct();

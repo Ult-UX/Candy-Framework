@@ -10,7 +10,7 @@ namespace Candy\core;
  * @author      ult-ux@outlook.com
  * @link        http://example.com
  */
-class Route
+final class Route
 {
     /**
     * 已设置的路由规则
