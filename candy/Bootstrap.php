@@ -104,7 +104,7 @@ final class Bootstrap
         // 注册基本命名空间
         AutoLoader::add(array(
             'Candy\\' => SYS_PATH,
-            'App\\' => APP_PATH
+            Config::get('app_namespace').'\\' => APP_PATH
         ));
         // 注册 Candy 公共函数库
         AutoLoader::add(array('func'=>[SYS_PATH.'function']), false);
