@@ -88,7 +88,7 @@ class Parser
      */
     public function display($template, $data = array())
     {
-        var_dump($this->blocks);
+        // var_dump($this->blocks);
         echo $this->fetch($template, $data);
     }
 
@@ -108,7 +108,7 @@ class Parser
         }
         $compile_file = $this->config['compile_dir'].md5($template).$this->config['tpl_suffix'];
         if ((!is_file($compile_file)) or (time() - filemtime($compile_file)) > $this->config['enable_cache']) {
-            file_put_contents($compile_file, $this->parseTemplate($template));
+            file_put_contents($compile_file, $this->extendTemplate($template));
         }
         ob_start();
         foreach ($this->data as $key=>$value) {
@@ -131,14 +131,14 @@ class Parser
      * @param   string  $template   template name
      * @return  string
      */
-    private function parseTemplate($template)
+    private function extendTemplate($template)
     {
         $template_str = $this->getTemplateString($template);
         $this->setBlocks($template_str);
         if (!preg_match('/^<!extends (?<parent>[^ <>]+)>/ism', $template_str, $matches)) {
             return $this->extendBlocks($template_str);
         }
-        return $this->parseTemplate($matches['parent']);
+        return $this->extendTemplate($matches['parent']);
     }
 
     /**
