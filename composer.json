@@ -1,0 +1,13 @@
+{
+    "name": "candy/framework",
+    "description": "A PHP MVC Framework",
+    "type": "project",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Ult-UX",
+            "email": "ult-ux@outlook.com"
+        }
+    ],
+    "require": {}
+}
