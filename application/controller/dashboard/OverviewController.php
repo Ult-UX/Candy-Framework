@@ -1,7 +1,7 @@
 <?php
-namespace APP\controller\dashboard;
+namespace App\controller\dashboard;
 
-use APP\common\DashboardController;
+use App\controller\common\DashboardController;
 
 class OverviewController extends DashboardController
 {
@@ -11,6 +11,6 @@ class OverviewController extends DashboardController
     }
     public function indexAction()
     {
-        $this->view->parse('overview');
+        $this->view->display('overview');
     }
 }

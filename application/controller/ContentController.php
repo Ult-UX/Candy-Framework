@@ -1,10 +1,10 @@
 <?php
-namespace APP\controller;
+namespace App\controller;
 
-use APP\common\PrimaryController;
+use App\controller\common\PrimaryController;
 
-use APP\model\ContentModel;
-use APP\model\MetaModel;
+use App\model\ContentModel;
+use App\model\MetaModel;
 use Spark\libraries\Pagination;
 
 class ContentController extends PrimaryController

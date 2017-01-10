@@ -103,7 +103,9 @@ class Parser
     public function fetch($template, $data = array())
     {
         $this->assign($data);
+        
         if (!is_dir($this->config['compile_dir'])) {
+            // var_dump($this->config['compile_dir']);
             mkdir($this->config['compile_dir']);
         }
         $compile_file = $this->config['compile_dir'].md5($template).$this->config['tpl_suffix'];

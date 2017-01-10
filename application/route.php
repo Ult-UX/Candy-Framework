@@ -4,10 +4,16 @@ namespace App;
 use Candy\core\Route;
 use Candy\core\Error;
 
-Route::get('404', [new Error(),'show'],['code'=>404,'msg'=>'页面未找到']);
+Route::get('404', [new Error(), 'show'], ['code'=>404, 'msg'=>'页面未找到']);
 
 // WellcommeController
-Route::get('/num:page?', ['wellcome', 'index']);
+Route::get('/wellcome', ['wellcome', 'index']);
+Route::get('/signin', ['security', 'signin']);
+Route::post('/signin', ['security', 'signin']);
+Route::get('/signup', ['security', 'signup']);
+// HomepageController
+Route::get('/home/num:page?', ['homepage', 'index']);
+Route::get('/num:page?', ['homepage', 'index']);
 // ContentController
 Route::get('/search/num:page?', ['content', 'search']);
 Route::get('/article/any:slug', ['content', 'view'], ['type'=>'post']);

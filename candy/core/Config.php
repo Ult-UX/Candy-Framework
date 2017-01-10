@@ -3,7 +3,7 @@ namespace Candy\core;
 
 final class Config
 {
-    public static $config = array();
+    private static $config = array();
     private $items = array();
     private static $dirs = array();
     private static $allowed_method = array('load','get');
@@ -52,14 +52,32 @@ final class Config
     {
         $this->items[$name] = $value;
     }
-    public function getConfig($config_name, $is_global = false)
+
+    /**
+     * 获取配置
+     * 
+     * 通过魔术方法 __call 或者 __callStatic 来使用 get() 方法
+     * $Instance->get('config_name') 从 $this->items 中获取相关值
+     * Config::get('config_name') 从 self::$config 中获取相关值
+     * 如未设置则获取 $this->items 或 self::$config
+     * 
+     * 
+     * 
+     */
+    private function getConfig($config_name = null, $is_global = false)
     {
         if ($is_global) {
+            if ($config_name == null) {
+                return self::$config;
+            }
             if (empty(self::$config[$config_name])) {
                 return false;
             }
             return self::$config[$config_name];
         } else {
+            if ($config_name == null) {
+                return $this->items;
+            }
             if (empty($this->items[$config_name])) {
                 return false;
             }

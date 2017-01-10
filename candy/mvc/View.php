@@ -91,7 +91,7 @@ class View
             $render = $this->render($template_file);
         } else {
             $compile_file = $this->config['compile_dir'].md5($template).$this->config['tpl_suffix'];
-            var_dump($compile_file);
+            // var_dump($compile_file);
             file_put_contents($compile_file, $template);
             $render = $this->render($compile_file);
         }

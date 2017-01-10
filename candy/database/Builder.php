@@ -1,5 +1,5 @@
 <?php
-namespace Spark\core\database;
+namespace Candy\database;
 /**
  * SQLBuilder Class
  * SQL 查询语句构造器
@@ -10,7 +10,7 @@ namespace Spark\core\database;
  * @author  ult-ux@outook.com
  * @link    http://ultux.com
  */
-class SQLBuilder
+class Builder
 {
     /**
      * 构造出基本的 SQL ，包括默认的 SELECT *
@@ -19,7 +19,6 @@ class SQLBuilder
      */
     public function __construct($dbms = 'mysql')
     {
-        $this->dbms = $dbms;
         $this->init();
     }
     public function init()

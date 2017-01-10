@@ -15,8 +15,8 @@ $config['root_path'] = '';
 // url 重写后缀
 $config['url_suffix'] = '.html';
 
-
-
+// 设置用户登入会话有效期
+$config['user_signed_session_life'] = 1800;
 
 $config['language'] = 'zh-cn';
 
