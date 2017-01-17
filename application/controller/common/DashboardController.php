@@ -1,16 +1,14 @@
 <?php
 namespace App\controller\common;
 
-use App\controller\common\SessionController;
+use App\controller\common\BootstrapController;
 use Candy\library\Parser;
 
-class DashboardController extends SessionController
+abstract class DashboardController extends BootstrapController
 {
     public function __construct()
     {
-        if (!isset($_SESSION)) {
-            var_dump($_SESSION);
-        }
+
         parent::__construct();
         $this->parser = new Parser();
         $this->parser->set(array(

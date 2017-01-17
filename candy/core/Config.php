@@ -55,14 +55,14 @@ final class Config
 
     /**
      * 获取配置
-     * 
+     *
      * 通过魔术方法 __call 或者 __callStatic 来使用 get() 方法
      * $Instance->get('config_name') 从 $this->items 中获取相关值
      * Config::get('config_name') 从 self::$config 中获取相关值
      * 如未设置则获取 $this->items 或 self::$config
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     private function getConfig($config_name = null, $is_global = false)
     {
@@ -79,7 +79,7 @@ final class Config
                 return $this->items;
             }
             if (empty($this->items[$config_name])) {
-                return false;
+                return $this->getConfig($config_name, true);
             }
             return $this->items[$config_name];
         }

@@ -59,7 +59,7 @@ final class Bootstrap
         // 设置 uri
         $this->setUri();
         // 加载路由配置文件
-        AutoLoader::add(APP_PATH.'route.php', false);
+        AutoLoader::add(APP_PATH.'init/route.php', false);
         // 实例化路由
         $RUT = new Route();
         // 路由解析 uri 得到请求
@@ -91,7 +91,7 @@ final class Bootstrap
     private function init()
     {
         // 加载应用自动加载设置
-        AutoLoader::add(APP_PATH.'autoload.php', false);
+        AutoLoader::add(APP_PATH.'init/autoload.php', false);
         // 注册配置文件文件夹
         Config::add(APP_PATH.'config');
         // 引入应用配置

@@ -1,6 +1,16 @@
 <?php
 namespace Candy\core;
 
+/**
+ * AutoLoader Final Class
+ * 
+ *
+ * @package     Candy Framework
+ * @subpackage  Candy\core
+ * @category    Core
+ * @author      ult-ux@outlook.com
+ * @link        http://example.com
+ */
 final class AutoLoader
 {
     private static $namespaces = array(

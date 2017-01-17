@@ -17,7 +17,6 @@
  * @since       Version 1.0.0
  */
 
-// var_dump($_SERVER);
 // Require the Candy Framework Bootstrap file
 // 加载 Candy Framework 引导文件
 require_once './../candy/Bootstrap.php';
@@ -27,5 +26,9 @@ $candy = new Candy\Bootstrap();
 // Set APP path and run it
 // 设置 APP 路径，运行
 $candy->run();
+
+
+// var_dump($_SERVER);
+
 // session_destroy();
-var_dump(@$_SESSION);
+// var_dump(@$_SESSION);

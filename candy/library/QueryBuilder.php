@@ -1,7 +1,7 @@
 <?php
-namespace Candy\database;
+namespace Candy\library;
 /**
- * SQLBuilder Class
+ * QueryBuilder Class
  * SQL 查询语句构造器
  *
  * @package Package Name
@@ -10,7 +10,7 @@ namespace Candy\database;
  * @author  ult-ux@outook.com
  * @link    http://ultux.com
  */
-class Builder
+class QueryBuilder
 {
     /**
      * 构造出基本的 SQL ，包括默认的 SELECT *

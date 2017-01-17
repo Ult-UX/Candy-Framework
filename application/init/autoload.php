@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\init;
 
 use Candy\core\AutoLoader;
 
