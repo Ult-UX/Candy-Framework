@@ -1,5 +1,5 @@
 <?php
-namespace Spark\libraries;
+namespace Spark\bundle;
 
 class Pagination
 {

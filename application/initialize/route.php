@@ -1,18 +1,18 @@
 <?php
-namespace App\init;
+namespace App\initialize;
 
-use Candy\core\Route;
-use Candy\core\Error;
+use Candy\component\Route;
+use Candy\component\Error;
 
 Route::get('404', [new Error(), 'show'], ['code'=>404, 'msg'=>'页面未找到']);
 
 // WellcommeController
 Route::get('/wellcome', ['wellcome', 'index']);
 Route::get('/account/any:name', ['account', 'index']);
-Route::get('/signin', ['common\security', 'signin']);
-Route::post('/signin', ['common\security', 'signin']);
-Route::get('/signup', ['common\security', 'signup']);
-Route::get('/signout', ['common\security', 'signout']);
+Route::get('/signin', ['security', 'signin']);
+Route::post('/signin', ['security', 'signin']);
+Route::get('/signup', ['security', 'signup']);
+Route::get('/signout', ['security', 'signout']);
 // HomepageController
 Route::get('/home/num:page?', ['homepage', 'index']);
 Route::get('/num:page?', ['homepage', 'index']);

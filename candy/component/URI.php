@@ -1,24 +1,77 @@
 <?php
-namespace Candy\core;
+namespace Candy\component;
 
 final class URI
 {
     private $segments = array(
-        'scheme' => '',
+        'scheme' => 'http',
         'host' => '',
-        'port' => '',
-        'path' => '',
+        'port' => '80',
+        'path' => '/',
         'query' => '',
-        'script' => '',
-        'prefix' => '',
-        'suffix' => ''
+        'script' => '/index.php',
+        'root' => '/',
+        'suffix' => '.html'
     );
 
     public function __construct()
     {
-        $this->init();
+        $this->initialize();
     }
-    private function init()
+
+    public function set($segments = array())
+    {
+        if (is_string($segments)) {
+            $segments = parse_url($segments);
+            if (isset($segments['path'])) {
+                if (preg_match('/\.[a-z]+$/is', $segments['path'], $matches)) {
+                    $segments['suffix'] = $matches[0];
+                    $segments['path'] = substr($segments['path'], 0, - strlen($matches[0]));
+                }
+            }
+        }
+        $this->segments = array_merge($this->segments, $segments);
+        return $this;
+    }
+
+    public function segment($segment = null)
+    {
+        if (!$segment) {
+            return $this->segments;
+        }
+        return $this->segments[$segment];
+    }
+    public function get($rewrite = true, $full = false)
+    {
+        $url = '';
+        if ($full) {
+            $url .= $this->segments['scheme'].':'.'//';
+            $url .= $this->segments['host'];
+            if ($this->segments['port'] != '80') {
+                $url .= ':'.$this->segments['port'];
+            }
+        }
+        if (!$rewrite) {
+            $url .= $this->segments['script'];
+        } else {
+            if ($this->segments['root'] != '/') {
+                $url .= $this->segments['root'];
+            }
+        }
+        if ($this->segments['path'] != '/') {
+            $url .= $this->segments['path'];
+            $url .= $this->segments['suffix'];
+        }
+        if ($this->segments['query']) {
+            $url .= '?'.$this->segments['query'];
+        }
+        if (!$url) {
+            $url = '/';
+        }
+        return $url;
+    }
+
+    private function initialize()
     {
         //判定是否是IIS7 并且赋值$_SERVER['REQUEST_URI']
         if (isset($_SERVER['HTTP_X_ORIGINAL_URL'])) {
@@ -62,7 +115,7 @@ final class URI
         } elseif (isset($_SERVER['REQUEST_URI'])) {
             $this->segments['path'] = parse_url(urldecode($_SERVER['REQUEST_URI']), PHP_URL_PATH);
         }
-        $this->segments['prefix'] = implode('/', array_intersect(explode('/', parse_url(urldecode($_SERVER['REQUEST_URI']), PHP_URL_PATH)), explode('/', $this->segments['script'])));
+        $this->segments['root'] = implode('/', array_intersect(explode('/', parse_url(urldecode($_SERVER['REQUEST_URI']), PHP_URL_PATH)), explode('/', $this->segments['script'])));
         $this->segments['path'] = array_diff_assoc(explode('/', $this->segments['path']), explode('/', $this->segments['script']));
         if (!$this->segments['suffix']) {
             $this->segments['suffix'] = strrchr(end($this->segments['path']), '.');
@@ -81,42 +134,5 @@ final class URI
         $this->segments = array_map(function ($value) {
             return (string) $value;
         }, $this->segments);
-    }
-
-    public function set($segments = array())
-    {
-        $this->segments = array_merge($this->segments, $segments);
-        return $this;
-    }
-    public function get($segment = null)
-    {
-        if (!$segment) {
-            return $this->segments;
-        }
-        return $this->segments[$segment];
-    }
-    public function getUrl($rewrite = true, $full = false)
-    {
-        $url = '';
-        if ($full) {
-            $url .= $this->segments['scheme'].':'.'//';
-            $url .= $this->segments['host'];
-            if ($this->segments['port'] != '80') {
-                $url .= ':'.$this->segments['port'];
-            }
-        }
-        if (!$rewrite) {
-            $url .= $this->segments['script'];
-        } else {
-            $url .= $this->segments['prefix'];
-        }
-        if ($this->segments['path'] != '/') {
-            $url .= $this->segments['path'];
-        }
-        $url .= $this->segments['suffix'];
-        if ($this->segments['query']) {
-            $url .= '?'.$this->segments['query'];
-        }
-        return $url;
     }
 }

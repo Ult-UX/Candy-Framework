@@ -1,5 +1,5 @@
 <?php
-namespace Candy\library;
+namespace Candy\bundle;
 /**
  * QueryBuilder Class
  * SQL 查询语句构造器

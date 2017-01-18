@@ -1,20 +1,25 @@
 <?php
 namespace Candy;
 
-use Candy\core\AutoLoader;
-use Candy\core\Route;
-use Candy\core\Config;
+use Candy\component\AutoLoader;
+use Candy\component\Route;
+use Candy\component\Config;
+use Candy\component\URI;
+use Candy\component\Error;
 
 /**
  * Candy Framework Bootstrap class
  * Candy Framework 引导类
  *
  * @package Candy
+ * @subpackage  None
+ * @category    None
  * @author  ult-ux@outlook.com
  * @link    https://ultux.com
  */
 final class Bootstrap
 {
+
     /**
     * The request string
     * uri 请求字符串
@@ -36,7 +41,11 @@ final class Bootstrap
      */
     public function __construct()
     {
-        error_reporting(1024 | 2048 | 30719);
+        // 检查 PHP 版本
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            trigger_error('The current PHP version is too low, the minimum version requirements for the 5.3.0 .');
+        }
+        // error_reporting(1024 | 2048 | 30719);
         // 定义 Candy Framework 内部版本号
         define('CF_VERSION', '0.0.0.20170110_alpha');
         // 定义系统路径常量
@@ -55,11 +64,18 @@ final class Bootstrap
         // 自动加载
         $this->autoLoad();
         // 初始化
-        $this->init();
+        $this->initialize();
+        
         // 设置 uri
-        $this->setUri();
+        $URI = new URI();
+
+        $this->uri = $URI->set(array('root' => Config::get('url_root'), 'suffix' => Config::get('url_suffix')))->segment('path');
+        var_dump($URI->segment());
+        var_dump($URI->get());
+        var_dump($URI->get(false, true));
+        
         // 加载路由配置文件
-        AutoLoader::add(APP_PATH.'init/route.php', false);
+        AutoLoader::add(APP_PATH.'initialize/route.php', false);
         // 实例化路由
         $RUT = new Route();
         // 路由解析 uri 得到请求
@@ -82,16 +98,16 @@ final class Bootstrap
         }
         // 执行
         $RUT->execute($this->request);
-        $this->debug();
+        // $this->debug();
     }
     /**
      * Initializes the application
      * 初始化应用程序
      */
-    private function init()
+    private function initialize()
     {
         // 加载应用自动加载设置
-        AutoLoader::add(APP_PATH.'init/autoload.php', false);
+        AutoLoader::add(APP_PATH.'initialize/autoload.php', false);
         // 注册配置文件文件夹
         Config::add(APP_PATH.'config');
         // 引入应用配置
@@ -108,7 +124,7 @@ final class Bootstrap
     private function autoLoad()
     {
         // 引入自动加载类
-        require_once SYS_PATH.'core'.DIRECTORY_SEPARATOR.'AutoLoader.php';
+        require_once SYS_PATH.'component'.DIRECTORY_SEPARATOR.'AutoLoader.php';
         // 注册自动加载类
         AutoLoader::register();
         // 注册基本命名空间
@@ -119,17 +135,6 @@ final class Bootstrap
         AutoLoader::add(array('func'=>[SYS_PATH.'function']), false);
         // 加载基础公共函数
         AutoLoader::func(['common', 'url']);
-    }
-    /**
-     * Sets the uri request string
-     * 设置uri请求字符串
-     */
-    private function setUri()
-    {
-        $this->uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->uri = preg_replace('/'.preg_quote(Config::get('url_suffix')).'$/is', '', $this->uri);
-        $this->uri = '/'.implode('/', array_diff_assoc(explode('/', $this->uri), explode('/', $_SERVER['SCRIPT_NAME'])));
-        $this->uri = urldecode($this->uri);
     }
     public function debug()
     {

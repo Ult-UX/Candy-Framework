@@ -2,7 +2,7 @@
 namespace App\controller\common;
 
 use App\controller\common\BootstrapController;
-use Candy\library\Parser;
+use Candy\bundle\Parser;
 
 abstract class DashboardController extends BootstrapController
 {

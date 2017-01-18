@@ -1,7 +1,7 @@
 <?php
 namespace App\model;
 
-use Candy\mvc\Model;
+use Candy\framework\Model;
 use PDO;
 
 class AccountModel extends Model
@@ -21,7 +21,7 @@ class AccountModel extends Model
             $set[] = $key.'='.$this->db->quote($value);
         }
         $set = implode(', ', $set);
-        $sql = 'UPDATE '.$this->config['table_prefix'].'users SET '.$set.' WHERE id = :id';
+        $sql = 'UPDATE '.$this->config['table_prefix'].'accounts SET '.$set.' WHERE id = :id';
         try {
             $this->db->beginTransaction();
             $stmt = $this->db->prepare($sql);

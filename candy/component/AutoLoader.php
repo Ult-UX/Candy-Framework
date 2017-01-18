@@ -1,15 +1,15 @@
 <?php
-namespace Candy\core;
+namespace Candy\component;
 
 /**
  * AutoLoader Final Class
- * 
+ * 自动加载类
  *
  * @package     Candy Framework
- * @subpackage  Candy\core
- * @category    Core
+ * @subpackage  Candy\component
+ * @category    component
  * @author      ult-ux@outlook.com
- * @link        http://example.com
+ * @link        http://ultux.com
  */
 final class AutoLoader
 {

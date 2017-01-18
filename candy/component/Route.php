@@ -1,12 +1,12 @@
 <?php
-namespace Candy\core;
+namespace Candy\component;
 
 /**
  * Route Class
  *
  * @package     Candy
- * @subpackage  Candy\core
- * @category    core
+ * @subpackage  Candy\component
+ * @category    component
  * @author      ult-ux@outlook.com
  * @link        http://example.com
  */

@@ -1,5 +1,5 @@
 <?php
-namespace Candy\mvc;
+namespace Candy\framework;
 
 /**
  * 视图渲染

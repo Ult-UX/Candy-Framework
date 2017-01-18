@@ -1,5 +1,5 @@
 <?php
-namespace Candy\library;
+namespace Candy\bundle;
 
 /**
  * 模板解析引擎

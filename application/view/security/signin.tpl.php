@@ -27,10 +27,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2">
-                <form class="card" role="form" method="post" action="/signin.html">
+                <form class="card" role="form" method="post">
                     <h2 class="form-signin-heading">Please sign in</h2>
                     <div class="form-group">
-                        <input type="email" name="user" class="form-control" placeholder="Email address" autofocus="" value="test@ultux.com">
+                        <input type="email" name="account" class="form-control" placeholder="Email address" autofocus="" value="test@ultux.com">
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="Password" value="123456">

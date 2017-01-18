@@ -1,8 +1,8 @@
 <?php
-namespace Candy\mvc;
+namespace Candy\framework;
 
-use Candy\core\Config;
-use Candy\library\QueryBuilder;
+use Candy\component\Config;
+use Candy\bundle\QueryBuilder;
 use PDO;
 
 /**

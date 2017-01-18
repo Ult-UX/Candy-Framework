@@ -1,5 +1,5 @@
 <?php
-namespace Candy\core;
+namespace Candy\component;
 
 final class Config
 {

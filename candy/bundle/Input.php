@@ -1,5 +1,5 @@
 <?php
-namespace Candy\core;
+namespace Candy\bundle;
 
 final class Input
 {
@@ -22,6 +22,12 @@ final class Input
             return;
         }
         return $_POST[$name];
+    }
+    public function get($name)
+    {
+        if (isset($_GET[$name])) {
+            return urldecode($_GET[$name]);
+        }
     }
     public function getUserAgent()
     {
