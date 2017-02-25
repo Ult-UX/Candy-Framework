@@ -1,5 +1,5 @@
 {
-    "name": "UltPHP/SQLBuilder",
+    "name": "ult/sql-builder",
     "description": "A PHP MVC Framework",
     "type": "project",
     "license": "Apache-2.0",
