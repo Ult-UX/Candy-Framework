@@ -1,5 +1,5 @@
 {
-    "name": "Rocket/SQLBuilder",
+    "name": "RocketPHP/SQLBuilder",
     "description": "A PHP MVC Framework",
     "type": "project",
     "license": "Apache-2.0",
